@@ -1,0 +1,334 @@
+/* Screen Ruler - Изолированные стили расширения */
+/* Используем высокие z-index и специфичные селекторы для изоляции */
+
+/* === ОСНОВНЫЕ КОНТЕЙНЕРЫ === */
+.screen-ruler-extension * {
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    color: #333 !important;
+    background: none !important;
+    text-align: left !important;
+    direction: ltr !important;
+}
+
+/* === ПОДСВЕЧИВАНИЕ ЭЛЕМЕНТОВ === */
+.screen-ruler-highlight {
+    position: absolute !important;
+    pointer-events: none !important;
+    z-index: 2147483645 !important;
+    border: 2px solid #FF6B6B !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
+    background: rgba(255, 107, 107, 0.1) !important;
+    transition: all 0.15s ease !important;
+}
+
+.screen-ruler-highlight.fixed {
+    border-color: #4ECDC4 !important;
+    background: rgba(78, 205, 196, 0.1) !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(78, 205, 196, 0.5) !important;
+}
+
+/* === ИНФОРМАЦИОННЫЕ LABELS НА ОБРАМЛЕНИИ === */
+.screen-ruler-label {
+    position: absolute !important;
+    z-index: 2147483646 !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: #ffffff !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.screen-ruler-label.top {
+    transform: translateY(-100%) translateY(-4px) !important;
+}
+
+.screen-ruler-label.bottom {
+    transform: translateY(4px) !important;
+}
+
+.screen-ruler-label.left {
+    transform: translateX(-100%) translateX(-4px) !important;
+}
+
+.screen-ruler-label.right {
+    transform: translateX(4px) !important;
+}
+
+/* === HOVER ОКНО === */
+.screen-ruler-hover-window {
+    position: absolute !important;
+    z-index: 2147483647 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    min-width: 200px !important;
+    max-width: 300px !important;
+    pointer-events: none !important;
+    font-size: 12px !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.screen-ruler-hover-window.dark {
+    background: rgba(30, 30, 30, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.screen-ruler-hover-window .selector {
+    color: #666 !important;
+    font-weight: 500 !important;
+    margin-bottom: 8px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 11px !important;
+}
+
+.screen-ruler-hover-window.dark .selector {
+    color: #ccc !important;
+}
+
+.screen-ruler-hover-window .dimensions {
+    color: #333 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+}
+
+.screen-ruler-hover-window.dark .dimensions {
+    color: #ffffff !important;
+}
+
+.screen-ruler-hover-window .box-model {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 4px !important;
+    padding: 8px !important;
+    background: rgba(0, 0, 0, 0.02) !important;
+    font-size: 11px !important;
+}
+
+.screen-ruler-hover-window.dark .box-model {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.screen-ruler-hover-window .box-model-row {
+    margin-bottom: 4px !important;
+}
+
+.screen-ruler-hover-window .box-model-row:last-child {
+    margin-bottom: 0 !important;
+}
+
+.screen-ruler-hover-window .box-model-label {
+    color: #666 !important;
+    display: inline-block !important;
+    width: 60px !important;
+}
+
+.screen-ruler-hover-window.dark .box-model-label {
+    color: #aaa !important;
+}
+
+/* === ЛИНИИ РАССТОЯНИЙ === */
+.screen-ruler-distance-line {
+    position: absolute !important;
+    z-index: 2147483644 !important;
+    pointer-events: none !important;
+}
+
+.screen-ruler-distance-line.horizontal {
+    height: 1px !important;
+    background: #FFE66D !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+.screen-ruler-distance-line.vertical {
+    width: 1px !important;
+    background: #FFE66D !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+.screen-ruler-distance-line.dashed {
+    background: repeating-linear-gradient(
+        90deg,
+        #FFE66D,
+        #FFE66D 4px,
+        transparent 4px,
+        transparent 8px
+    ) !important;
+}
+
+.screen-ruler-distance-line.dashed.vertical {
+    background: repeating-linear-gradient(
+        180deg,
+        #FFE66D,
+        #FFE66D 4px,
+        transparent 4px,
+        transparent 8px
+    ) !important;
+}
+
+/* === РАЗМЕРЫ НА ЛИНИЯХ === */
+.screen-ruler-distance-label {
+    position: absolute !important;
+    z-index: 2147483646 !important;
+    background: rgba(255, 230, 109, 0.95) !important;
+    color: #333 !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* === КОНТРОЛЬНАЯ ПАНЕЛЬ === */
+.screen-ruler-control-panel {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 2147483647 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    display: flex !important;
+    gap: 8px !important;
+    align-items: center !important;
+    cursor: move !important;
+    user-select: none !important;
+}
+
+.screen-ruler-control-panel.dark {
+    background: rgba(30, 30, 30, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.screen-ruler-control-panel button {
+    background: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    color: #333 !important;
+}
+
+.screen-ruler-control-panel.dark button {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.screen-ruler-control-panel button:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.screen-ruler-control-panel.dark button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.screen-ruler-control-panel button.active {
+    background: #4ECDC4 !important;
+    border-color: #4ECDC4 !important;
+    color: #ffffff !important;
+}
+
+.screen-ruler-control-panel .status-indicator {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #4ECDC4 !important;
+    margin-right: 4px !important;
+}
+
+.screen-ruler-control-panel .status-indicator.paused {
+    background: #FFE66D !important;
+}
+
+.screen-ruler-control-panel .status-indicator.disabled {
+    background: #ccc !important;
+}
+
+/* === СКРЫТИЕ ПРИ ОТКЛЮЧЕНИИ === */
+.screen-ruler-extension.hidden {
+    display: none !important;
+}
+
+/* === АНИМАЦИИ === */
+@keyframes screenRulerFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes screenRulerFadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+}
+
+.screen-ruler-hover-window {
+    animation: screenRulerFadeIn 0.15s ease !important;
+}
+
+.screen-ruler-hover-window.hiding {
+    animation: screenRulerFadeOut 0.15s ease !important;
+}
+
+/* === ПОЗИЦИОНИРОВАНИЕ === */
+.screen-ruler-position-cursor {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    z-index: 2147483647 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: #ffffff !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    pointer-events: none !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 768px) {
+    .screen-ruler-control-panel {
+        scale: 0.9 !important;
+        top: 10px !important;
+        right: 10px !important;
+    }
+    
+    .screen-ruler-hover-window {
+        max-width: 250px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+    .screen-ruler-extension * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Ruler</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 320px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .header {
+            background: #4ECDC4;
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+        
+        .content {
+            padding: 16px;
+        }
+        
+        .status-section {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .status-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-label {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+        }
+        
+        .status-dot.active {
+            background: #4ECDC4;
+        }
+        
+        .status-dot.paused {
+            background: #FFE66D;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .toggle-switch.active {
+            background: #4ECDC4;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+        
+        .controls-section {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .button {
+            width: 100%;
+            padding: 12px 16px;
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+        
+        .button:last-child {
+            margin-bottom: 0;
+        }
+        
+        .button:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+        
+        .button.primary {
+            background: #4ECDC4;
+            border-color: #4ECDC4;
+            color: white;
+        }
+        
+        .button.primary:hover {
+            background: #45B7B8;
+            border-color: #45B7B8;
+        }
+        
+        .button.danger {
+            background: #FF6B6B;
+            border-color: #FF6B6B;
+            color: white;
+        }
+        
+        .button.danger:hover {
+            background: #FF5252;
+            border-color: #FF5252;
+        }
+        
+        .settings-group {
+            margin-bottom: 16px;
+        }
+        
+        .settings-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .settings-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .settings-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .settings-label {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .checkbox.checked {
+            background: #4ECDC4;
+            border-color: #4ECDC4;
+        }
+        
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #eee;
+            margin: 16px 0;
+        }
+        
+        .hotkeys {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .hotkey-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .hotkey-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .hotkey-action {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .hotkey-combo {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #333;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 12px;
+            font-size: 11px;
+            color: #999;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Screen Ruler</h1>
+        <div class="subtitle">Измерение элементов и расстояний</div>
+    </div>
+    
+    <div class="content">
+        <div class="loading" id="loading">
+            Загрузка...
+        </div>
+        
+        <div class="main-content hidden" id="mainContent">
+            <!-- Статус расширения -->
+            <div class="status-section">
+                <div class="status-row">
+                    <span class="status-label">Расширение</span>
+                    <div class="toggle-switch" id="extensionToggle">
+                    </div>
+                </div>
+                <div class="status-row">
+                    <span class="status-label">Статус</span>
+                    <div class="status-indicator">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="statusText">Отключено</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Основные контролы -->
+            <div class="controls-section">
+                <div class="section-title">Управление</div>
+                <button class="button" id="pauseBtn">Пауза</button>
+                <button class="button" id="unfixBtn">Снять фиксацию</button>
+                <button class="button danger" id="disableBtn">Отключить</button>
+            </div>
+            
+            <!-- Настройки -->
+            <div class="controls-section">
+                <div class="section-title">Настройки</div>
+                
+                <div class="settings-group">
+                    <div class="settings-row">
+                        <span class="settings-label">Показывать позицию курсора</span>
+                        <div class="checkbox" id="cursorPositionCheckbox"></div>
+                    </div>
+                    
+                    <div class="settings-row">
+                        <span class="settings-label">Интерактивный режим</span>
+                        <div class="checkbox" id="interactiveModeCheckbox"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Горячие клавиши -->
+            <div class="hotkeys">
+                <div class="section-title">Горячие клавиши</div>
+                
+                <div class="hotkey-row">
+                    <span class="hotkey-action">Зафиксировать элемент</span>
+                    <span class="hotkey-combo">Alt</span>
+                </div>
+                
+                <div class="hotkey-row">
+                    <span class="hotkey-action">Снять фиксацию</span>
+                    <span class="hotkey-combo">Escape</span>
+                </div>
+                
+                <div class="hotkey-row">
+                    <span class="hotkey-action">Пауза</span>
+                    <span class="hotkey-combo">Кнопка панели</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        v1.0.0 | Для веб-разработчиков
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>
